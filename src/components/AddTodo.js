@@ -40,8 +40,8 @@ function AddTodo({add}) {
                 </Grid>
                 <Grid xs={1} md={1} item>
                     <Button fullWidth 
-                            color="secondary" v
-                            ariant="outlined" 
+                            color="secondary" 
+                            variant="outlined" 
                             onClick={addClickHandler}>
                         +
                     </Button>
