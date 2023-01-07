@@ -154,8 +154,8 @@ const Join = () => {
                 body: userFormData
         }).then(res => {
             if (res.status === 200) {
-                // alert('회원가입을 축하합니다!!');
-                // window.location.href='/login';
+                alert('회원가입을 축하합니다!!');
+                window.location.href='/login';
             } else {
                 alert('서버에 문제가 생겼습니다. 다음에 다시 시도하세요');
             }
