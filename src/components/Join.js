@@ -135,16 +135,29 @@ const Join = () => {
         e.preventDefault(); //새로고침 기능 없애기
 
         if(isValid()){ //validate 값 모두가 true일 때 회원가입이 돼야한다 -> isValid()를 이용
+
+            //회원 텍스트 정보 (JSON) + 프로필 사진 (이미지)
+            // 서버에 여러가지 정보를 보낼 때 multipart/form-data
+            const userFormData = new FormData();
+
+            const userBlob = new Blob([JSON.stringify(user)], { type: "application/json" });   //userInfo와 profileImg는 다른 타입이기 때문에
+                                                                                                //userBlob으로 통일시켜준다
+
+            //유저정보 JSON append(key값, 전달할 값)
+            userFormData.append('userInfo', userBlob);
+            userFormData.append('profileImg', $fileInput.current.files[0]);
+
+
             fetch(API_BASE_URL+'/auth/signup', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(user)
+                 //이미지는 JSON 타입이 아니라 byte 타입이기 때문에 application/json을 사용할 수 없다
+                body: userFormData
         }).then(res => {
             if (res.status === 200) {
-                alert('회원가입을 축하합니다!!');
-                window.location.href='/login';
+                // alert('회원가입을 축하합니다!!');
+                // window.location.href='/login';
             } else {
-                alert('서버에 문제가 생겼습니다. 다음에 다시 시도하세요 쏴리~');
+                alert('서버에 문제가 생겼습니다. 다음에 다시 시도하세요');
             }
         })
 
