@@ -31,6 +31,13 @@ const Todo = ({ item, remove, update }) => {
         
     };
 
+
+    const updateHandler = e => {
+        console.log(e.target.value);
+        setItemState({...itemState, title: e.target.value});
+        update(itemState);
+    }
+
     useEffect(() => {
         // update(itemState);
     }, [itemState])
@@ -40,13 +47,14 @@ const Todo = ({ item, remove, update }) => {
             <Checkbox checked={done} onChange={checkHandler}/>
             <ListItemText>
                 <InputBase
-                    inputProps={{"aria-label" : "naked"}}
+                    inputProps={{"aria-label" : "naked", readOnly: false}}
                     type="text"
                     id={id}
                     name={id}
                     value={title}
                     multiline={true}
                     fullWidth={true}
+                    onChange={updateHandler}
                 />
             </ListItemText>
             {/* 삭제 버튼 */}
